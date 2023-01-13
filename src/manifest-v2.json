@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Telegraph media downloader",
+  "description": "Super simple and clean image and video downloader from telegra.ph",
+  "version": "0.1.0",
+  "icons": {
+    "16": "images/logo/16.png",
+    "48": "images/logo/48.png",
+    "128": "images/logo/128.png"
+  },
+  "page_action": {
+    "default_icon": {
+      "16": "images/logo/16.png",
+      "48": "images/logo/48.png",
+      "128": "images/logo/128.png"
+    }
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["activeTab", "scripting"]
+}

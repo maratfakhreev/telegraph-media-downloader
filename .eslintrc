@@ -1,0 +1,104 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  },
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "import"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "webextensions": true,
+    "es2020": true
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts"]
+    },
+    "import/resolver": {
+      "node": {},
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    },
+    "jest": {
+      "version": "latest"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": false,
+        "allowTypedFunctionExpressions": true,
+        "allowHigherOrderFunctions": true,
+        "allowDirectConstAssertionInArrowFunctions": true,
+        "allowConciseArrowFunctionExpressionsStartingWithVoid": false
+      }
+    ],
+    "@typescript-eslint/no-var-requires": "off",
+    "brace-style": [
+      "error",
+      "1tbs",
+      {
+        "allowSingleLine": false
+      }
+    ],
+    "class-methods-use-this": "error",
+    "default-case": "off",
+    "func-names": ["error", "never"],
+    "global-require": "off",
+    "import/imports-first": "error",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "no-alert": "off",
+    "no-await-in-loop": "off",
+    "no-constant-condition": "error",
+    "no-empty": [
+      "error",
+      {
+        "allowEmptyCatch": true
+      }
+    ],
+    "no-nested-ternary": "off",
+    "no-new": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-restricted-syntax": "off",
+    "no-shadow": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true }],
+    "object-shorthand": ["error", "always"],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": "*", "next": ["const", "let", "var"] },
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] },
+      {
+        "blankLine": "always",
+        "prev": ["block", "block-like"],
+        "next": ["block", "block-like"]
+      },
+      { "blankLine": "always", "prev": "directive", "next": "*" },
+      { "blankLine": "never", "prev": "directive", "next": "directive" }
+    ],
+    "prefer-const": "error",
+    "radix": ["error", "as-needed"],
+    "react-hooks/exhaustive-deps": "off",
+    "react/no-danger": "off"
+  }
+}
