@@ -81,11 +81,3 @@ We strictly follow [Semantic Versioning](http://semver.org/)
 1. Update project version in src/manifest-v3.json for Chromium based browsers.
 2. Update project version in src/manifest-v2.json for Firefox browser.
 3. Commit it with message `release x.x.x`.
-
-## Additional information
-
-Extensions page:\
-chrome://extensions
-
-For fast extenstion reloading use:\
-https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid
