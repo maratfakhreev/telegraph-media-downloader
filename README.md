@@ -1,6 +1,6 @@
 # Telegraph media downloader
 
-Super simple and clean image and video downloader from telegra.ph
+Super simple, fast and clean image, video and audio downloader from telegra.ph
 
 ## Prepare
 

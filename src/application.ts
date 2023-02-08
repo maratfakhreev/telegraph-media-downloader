@@ -21,7 +21,7 @@ if (window.location.host === 'telegra.ph') {
     clearInterval(window.tgInterval);
     delete window.tgInterval;
   } else {
-    const media = document.querySelectorAll('figure img, figure video');
+    const media = document.querySelectorAll('figure img, figure video, figure audio');
     const mediaCount = media.length;
     let i = 0;
 

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Telegraph media downloader",
-  "description": "Super simple, fast and clean image and video downloader from telegra.ph",
+  "description": "Super simple, fast and clean image, video and audio downloader from telegra.ph",
   "version": "1.0.0",
   "icons": {
     "16": "images/logo/16.png",
