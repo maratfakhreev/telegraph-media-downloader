@@ -1,4 +1,4 @@
-const createCounter = (): void => {
+const createTgCounter = (): void => {
   window.tgCounter = document.createElement('div');
   window.tgCounter.innerHTML = `
     <div style="-webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-family: system-ui; border: 1px solid #dfdfdf; border-radius: 12px; position: fixed; background-color: #fff; padding: 12px 18px; top: 18px; right: 18px; width: 180px;">
@@ -10,11 +10,20 @@ const createCounter = (): void => {
   document.body.appendChild(window.tgCounter);
 };
 
-const removeCounter = (): void => {
-  setTimeout(() => {
+const removeTgCounter = (): void => {
+  if (window.tgTimeout) {
+    clearTimeout(window.tgTimeout);
+  }
+
+  window.tgTimeout = setTimeout(() => {
     window.tgCounter?.remove();
     delete window.tgCounter;
   }, 2000);
+};
+
+const clearTgInterval = (): void => {
+  clearInterval(window.tgInterval);
+  delete window.tgInterval;
 };
 
 let titleNode: HTMLElement;
@@ -28,14 +37,13 @@ if (window.location.host === 'telegra.ph') {
     progressNode = document.querySelector('#t_media_progress');
     progressNode.innerHTML = '';
 
-    removeCounter();
+    removeTgCounter();
   } else {
-    createCounter();
+    createTgCounter();
   }
 
   if (window.tgInterval) {
-    clearInterval(window.tgInterval);
-    delete window.tgInterval;
+    clearTgInterval();
   } else {
     const media = document.querySelectorAll('figure img, figure video, figure audio');
     const mediaCount = media.length;
@@ -46,8 +54,7 @@ if (window.location.host === 'telegra.ph') {
       titleNode.innerHTML = 'Nothing to download';
       titleNode.style.margin = '0';
 
-      clearInterval(window.tgInterval);
-      removeCounter();
+      removeTgCounter();
     } else {
       titleNode = document.querySelector('#t_media_title');
       titleNode.innerHTML = `Media count: ${mediaCount}`;
@@ -73,8 +80,8 @@ if (window.location.host === 'telegra.ph') {
         } else {
           progressNode.innerHTML = '<b>all media downloaded</b>';
 
-          clearInterval(window.tgInterval);
-          removeCounter();
+          removeTgCounter();
+          clearTgInterval();
         }
       }, 200);
     }
