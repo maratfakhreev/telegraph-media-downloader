@@ -24,8 +24,7 @@ const ts = (): void => {
     outdir: '.',
     platform: 'browser',
     bundle: true,
-    minifyIdentifiers: true,
-    minifySyntax: true,
+    minify: true,
     sourcemap: isDev ? 'inline' : false,
     sourcesContent: false,
   };
