@@ -2,8 +2,8 @@ export {};
 
 declare global {
   interface Window {
-    tgInterval: any;
-    tgTimeout: any;
+    tgDowloadIsStarted: any;
+    tgCounterTimeout: any;
     tgCounter: any;
   }
 }
