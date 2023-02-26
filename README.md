@@ -1,4 +1,4 @@
-# Telegraph media downloader
+# Telegra.ph media downloader
 
 Super simple, fast and clean image, video and audio downloader from telegra.ph
 
