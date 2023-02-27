@@ -51,7 +51,6 @@ const toDataURL = async (url): Promise<string> => {
 
     const media = document.querySelectorAll('figure img, figure video, figure audio');
     const mediaCount = media.length;
-    let i = 0;
 
     if (mediaCount === 0) {
       titleNode = document.querySelector('#t_media_title');
@@ -68,18 +67,21 @@ const toDataURL = async (url): Promise<string> => {
       titleNode.innerHTML = `Media count: ${mediaCount}`;
       titleNode.style.margin = '0 0 9px';
 
-      for (const currentMedia of media) {
+      for (const [i, v] of media.entries()) {
         if (!window.tgDowloadIsStarted) {
           break;
         }
 
         progressNode = document.querySelector('#t_media_progress');
 
-        if (mediaCount > i) {
-          progressNode.innerHTML = `downloading media: ${++i}`;
+        if (mediaCount - 1 === i) {
+          progressNode.innerHTML = '<b>all media downloaded</b>';
+          removeTgCounter();
+        } else {
+          progressNode.innerHTML = `downloading media: ${i + 1}`;
 
           const link = document.createElement('a');
-          const { src } = currentMedia as any;
+          const { src } = v as any;
 
           link.id = i.toString();
           link.download = src;
@@ -88,9 +90,6 @@ const toDataURL = async (url): Promise<string> => {
           document.body.appendChild(link);
           await asyncSleep(100);
           document.body.removeChild(link);
-        } else {
-          progressNode.innerHTML = '<b>all media downloaded</b>';
-          removeTgCounter();
         }
       }
     }
