@@ -72,24 +72,25 @@ const toDataURL = async (url): Promise<string> => {
           break;
         }
 
-        progressNode = document.querySelector('#t_media_progress');
+        const pictureNumber = i + 1;
 
-        if (mediaCount - 1 === i) {
+        progressNode = document.querySelector('#t_media_progress');
+        progressNode.innerHTML = `downloading media: ${pictureNumber}`;
+
+        const link = document.createElement('a');
+        const { src } = v as any;
+
+        link.id = i.toString();
+        link.download = src;
+        link.href = await toDataURL(src);
+        link.click();
+        document.body.appendChild(link);
+        await asyncSleep(100);
+        document.body.removeChild(link);
+
+        if (mediaCount === pictureNumber) {
           progressNode.innerHTML = '<b>all media downloaded</b>';
           removeTgCounter();
-        } else {
-          progressNode.innerHTML = `downloading media: ${i + 1}`;
-
-          const link = document.createElement('a');
-          const { src } = v as any;
-
-          link.id = i.toString();
-          link.download = src;
-          link.href = await toDataURL(src);
-          link.click();
-          document.body.appendChild(link);
-          await asyncSleep(100);
-          document.body.removeChild(link);
         }
       }
     }
