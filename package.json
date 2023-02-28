@@ -6,7 +6,7 @@
     "email": "marat.fakhreev@gmail.com"
   },
   "scripts": {
-    "postinstall": "npx simple-git-hooks && patch-package",
+    "postinstall": "npx simple-git-hooks",
     "lint": "eslint . --ext .ts",
     "tscheck": "tsc --noEmit",
     "tswatch": "tsc --noEmit --watch",
@@ -39,7 +39,6 @@
     "gulp-util": "^3.0.8",
     "gulp-zip": "^5.1.0",
     "lint-staged": "^12.3.1",
-    "patch-package": "^6.4.7",
     "prettier": "^2.5.1",
     "simple-git-hooks": "^2.7.0",
     "ts-node": "^10.7.0",
