@@ -1,7 +1,7 @@
 const addTgCounter = (): void => {
   window.tgCounter = document.createElement('div');
   window.tgCounter.innerHTML = `
-    <div style="-webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-family: system-ui; border: 1px solid #dfdfdf; border-radius: 12px; position: fixed; background-color: #fff; padding: 12px 18px; top: 18px; right: 18px; width: 180px;">
+    <div style="-webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-family: system-ui; background-color: #fff; padding: 12px 18px; border: 1px solid #dfdfdf; border-radius: 12px; position: fixed; z-index: 9999; right: 18px; bottom: 18px; width: 180px;">
       <div style="font-size: 16px;" id="t_media_title"></div>
       <div style="font-size: 12px;" id="t_media_progress"></div>
     </div>
