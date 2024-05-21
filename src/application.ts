@@ -31,7 +31,7 @@ const toDataURL = async (url): Promise<string> => {
   return URL.createObjectURL(blob);
 };
 
-(async function (): Promise<void> {
+(async (): Promise<void> => {
   let titleNode: HTMLElement;
   let progressNode: HTMLElement;
 
@@ -67,7 +67,9 @@ const toDataURL = async (url): Promise<string> => {
       titleNode.innerHTML = `Media count: ${mediaCount}`;
       titleNode.style.margin = '0 0 9px';
 
-      for (const [i, v] of media.entries()) {
+      const collection = Array.from(media).reverse().entries();
+
+      for (const [i, v] of collection) {
         if (!window.tgDowloadIsStarted) {
           break;
         }
