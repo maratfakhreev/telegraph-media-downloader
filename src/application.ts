@@ -1,9 +1,15 @@
 const addTgCounter = (): void => {
   window.tgCounter = document.createElement('div');
   window.tgCounter.innerHTML = `
-    <div style="-webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-family: system-ui; background-color: #fff; padding: 12px 18px; border: 1px solid #dfdfdf; border-radius: 12px; position: fixed; z-index: 9999; right: 18px; bottom: 18px; width: 180px;">
-      <div style="font-size: 16px;" id="t_media_title"></div>
-      <div style="font-size: 12px;" id="t_media_progress"></div>
+    <div style="-webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-family: system-ui; position: fixed; z-index: 9999; right: 18px; bottom: 18px; width: 260px;">
+      <div style="background-color: #fff; padding: 12px; border: 1px solid #dfdfdf; border-radius: 12px; font-size: 12px;">
+        <div style="font-size: 16px;" id="t_media_title"></div>
+        <div id="t_media_progress"></div>
+      </div>
+      <div style="background-color: #fff; padding: 12px; border: 1px solid #dfdfdf; border-radius: 12px; font-size: 10px; margin: 6px 0 0; color: #7A7A7A;">
+        this extension is free and will always be so, but if you want to support me then
+        <a href="https://buymeacoffee.com/maratfakhreev" style="color: #A74E0D;" target="_blank">buy me a ☕️</a>
+      </div>
     </div>
   `;
   document.body.appendChild(window.tgCounter);
