@@ -32,9 +32,14 @@ const asyncSleep = (ms: number): Promise<void> =>
   });
 
 const toDataURL = async (url): Promise<string> => {
-  const blob = await fetch(url).then(res => res.blob());
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
 
-  return URL.createObjectURL(blob);
+    return URL.createObjectURL(blob);
+  } catch {
+    return null;
+  }
 };
 
 (async (): Promise<void> => {
