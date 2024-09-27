@@ -31,6 +31,8 @@ const asyncSleep = (ms: number): Promise<void> =>
     setTimeout(resolve, ms);
   });
 
+const hasFileExtension = (str: string): boolean => /\.[0-9a-z]+$/i.test(str);
+
 const toDataURL = async (url): Promise<string> => {
   try {
     const response = await fetch(url);
@@ -91,7 +93,8 @@ const toDataURL = async (url): Promise<string> => {
         progressNode.innerHTML = `downloading media: ${pictureNumber}`;
 
         const link = document.createElement('a');
-        const { src } = v as any;
+        const image = v as HTMLImageElement;
+        const src = hasFileExtension(image.src) ? image.src : `${image.src}.jpg`;
 
         link.id = i.toString();
         link.download = src;
