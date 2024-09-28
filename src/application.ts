@@ -81,6 +81,9 @@ const toDataURL = async (url): Promise<string> => {
       titleNode.style.margin = '0 0 9px';
 
       const collection = Array.from(media).reverse().entries();
+      let someFilesWithoutExtension = false;
+
+      progressNode = document.querySelector('#t_media_progress');
 
       for (const [i, v] of collection) {
         if (!window.tgDowloadIsStarted) {
@@ -88,13 +91,18 @@ const toDataURL = async (url): Promise<string> => {
         }
 
         const pictureNumber = i + 1;
-
-        progressNode = document.querySelector('#t_media_progress');
-        progressNode.innerHTML = `downloading media: ${pictureNumber}`;
-
         const link = document.createElement('a');
         const image = v as HTMLImageElement;
-        const src = hasFileExtension(image.src) ? image.src : `${image.src}.jpg`;
+        let src: string;
+
+        if (hasFileExtension(image.src)) {
+          src = image.src;
+          progressNode.innerHTML = `downloading media: ${pictureNumber}`;
+        } else {
+          someFilesWithoutExtension = true;
+          src = `${image.src}.jpg`;
+          progressNode.innerHTML = `downloading media: ${pictureNumber}.<br /><br />Some of the files do not have an extension, so they will be saved as .jpg`;
+        }
 
         link.id = i.toString();
         link.download = src;
@@ -105,7 +113,9 @@ const toDataURL = async (url): Promise<string> => {
         document.body.removeChild(link);
 
         if (mediaCount === pictureNumber) {
-          progressNode.innerHTML = '<b>all media downloaded</b>';
+          progressNode.innerHTML = someFilesWithoutExtension
+            ? '<b>all media downloaded.<br /><br />Some of the files do not have an extension, so they were saved as .jpg</b>'
+            : '<b>all media downloaded</b>';
           removeTgCounter();
         }
       }
