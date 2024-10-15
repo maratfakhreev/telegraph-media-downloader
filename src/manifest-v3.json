@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Telegra.ph media downloader",
   "description": "Super simple, fast and clean image, video and audio downloader from telegra.ph",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "icons": {
     "16": "images/logo/16.png",
     "48": "images/logo/48.png",
