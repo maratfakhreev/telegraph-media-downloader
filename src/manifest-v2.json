@@ -18,5 +18,5 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "permissions": ["activeTab", "contextMenus", "scripting"]
+  "permissions": ["activeTab", "contextMenus", "scripting", "downloads"]
 }

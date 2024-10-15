@@ -26,24 +26,6 @@ const removeTgCounter = (): void => {
   }, 2000);
 };
 
-const asyncSleep = (ms: number): Promise<void> =>
-  new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
-
-const hasFileExtension = (str: string): boolean => /\.[0-9a-z]+$/i.test(str);
-
-const toDataURL = async (url): Promise<string> => {
-  try {
-    const response = await fetch(url);
-    const blob = await response.blob();
-
-    return URL.createObjectURL(blob);
-  } catch {
-    return null;
-  }
-};
-
 (async (): Promise<void> => {
   let titleNode: HTMLElement;
   let progressNode: HTMLElement;
@@ -80,47 +62,28 @@ const toDataURL = async (url): Promise<string> => {
       titleNode.innerHTML = `Media count: ${mediaCount}`;
       titleNode.style.margin = '0 0 9px';
 
-      const collection = Array.from(media).reverse().entries();
-      let someFilesWithoutExtension = false;
-
-      progressNode = document.querySelector('#t_media_progress');
-
-      for (const [i, v] of collection) {
-        if (!window.tgDowloadIsStarted) {
-          break;
-        }
-
-        const pictureNumber = i + 1;
-        const link = document.createElement('a');
-        const image = v as HTMLImageElement;
-        let src: string;
-
-        if (hasFileExtension(image.src)) {
-          src = image.src;
-          progressNode.innerHTML = `downloading media: ${pictureNumber}`;
-        } else {
-          someFilesWithoutExtension = true;
-          src = `${image.src}.jpg`;
-          progressNode.innerHTML = `downloading media: ${pictureNumber}.<br /><br />Some of the files do not have an extension, so they will be saved as .jpg`;
-        }
-
-        link.id = i.toString();
-        link.download = src;
-        link.href = await toDataURL(src);
-        link.click();
-        document.body.appendChild(link);
-        await asyncSleep(100);
-        document.body.removeChild(link);
-
-        if (mediaCount === pictureNumber) {
-          progressNode.innerHTML = someFilesWithoutExtension
-            ? '<b>all media downloaded.<br /><br />Some of the files do not have an extension, so they were saved as .jpg</b>'
-            : '<b>all media downloaded</b>';
-          removeTgCounter();
-        }
-      }
+      await chrome.runtime.sendMessage({
+        msg: 'download',
+        urls: Array.from(media)
+          .reverse()
+          .map(v => (v as HTMLImageElement).src),
+      });
     }
   } else {
     alert('The extension works only on https://telegra.ph website');
   }
 })();
+
+chrome.runtime.onMessage.addListener(({ msg, data }: { msg: string; data: unknown }) => {
+  if (msg === 'render_counter') {
+    const { index, count } = data as { index: number; count: number };
+    const progressNode = document.querySelector('#t_media_progress');
+
+    if (index === count) {
+      progressNode.innerHTML = '<b>all media downloaded</b>';
+      removeTgCounter();
+    } else {
+      progressNode.innerHTML = `downloading media: ${index}`;
+    }
+  }
+});
