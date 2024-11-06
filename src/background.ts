@@ -1,26 +1,27 @@
+let onChanged: (args: { id: any; state: any }) => void;
+let next: () => void;
+
 const downloadSequentially = (urls: string[], tabId: number): void => {
   const urlsLength = urls.length;
   let index = 0;
   let currentId;
 
-  const onChanged = ({ id, state }): void => {
+  onChanged = ({ id, state }): void => {
     if (id === currentId && state && state.current !== 'in_progress') {
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       next();
     }
   };
 
-  const next = (): void => {
+  next = (): void => {
     if (index >= urlsLength) {
       chrome.downloads.onChanged.removeListener(onChanged);
 
       return;
     }
 
-    ++index;
     chrome.tabs.sendMessage(tabId, {
       msg: 'render_counter',
-      data: { index, count: urlsLength },
+      data: { index: index + 1, count: urlsLength },
     });
 
     if (urls[index]) {
@@ -28,6 +29,8 @@ const downloadSequentially = (urls: string[], tabId: number): void => {
         currentId = id;
       });
     }
+
+    ++index;
   };
 
   chrome.downloads.onChanged.addListener(onChanged);
@@ -55,7 +58,11 @@ chrome.runtime.onMessage.addListener(
         } catch (e) {
           throw new Error(e);
         }
+        break;
+      }
 
+      case 'stop_download': {
+        chrome.downloads.onChanged.removeListener(onChanged);
         break;
       }
     }

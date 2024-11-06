@@ -38,6 +38,7 @@ const removeTgCounter = (): void => {
       titleNode.style.margin = '0';
       progressNode = document.querySelector('#t_media_progress');
       progressNode.innerHTML = '';
+      await chrome.runtime.sendMessage({ msg: 'stop_download' });
       removeTgCounter();
     } else {
       window.tgDowloadIsStarted = true;
@@ -61,7 +62,6 @@ const removeTgCounter = (): void => {
       titleNode = document.querySelector('#t_media_title');
       titleNode.innerHTML = `Media count: ${mediaCount}`;
       titleNode.style.margin = '0 0 9px';
-
       await chrome.runtime.sendMessage({
         msg: 'download',
         urls: Array.from(media)
