@@ -1,3 +1,5 @@
+const domains = ['telegra.ph', 'graph.org'];
+
 const addTgCounter = (): void => {
   window.tgCounter = document.createElement('div');
   window.tgCounter.innerHTML = `
@@ -30,7 +32,7 @@ const removeTgCounter = (): void => {
   let titleNode: HTMLElement;
   let progressNode: HTMLElement;
 
-  if (window.location.host === 'telegra.ph') {
+  if (domains.includes(window.location.host)) {
     if (window.tgCounter) {
       window.tgDowloadIsStarted = false;
       titleNode = document.querySelector('#t_media_title');
@@ -70,7 +72,7 @@ const removeTgCounter = (): void => {
       });
     }
   } else {
-    alert('The extension works only on https://telegra.ph website');
+    alert(`The extension works only on Telegraph domains: ${domains.join(', ')}`);
   }
 })();
 

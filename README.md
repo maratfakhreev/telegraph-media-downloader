@@ -1,6 +1,6 @@
 # Telegra.ph media downloader
 
-Super simple, fast and clean image, video and audio downloader from telegra.ph
+Super simple, fast and clean image, video and audio downloader from telegra.ph and graph.org
 
 ## Prepare
 
